@@ -1,0 +1,57 @@
+#服务器配置
+server:
+  #项目的端口号
+  port: 8989
+  #项目的站点(根路径)
+  servlet:
+    context-path: /springboot-mybatis
+
+#spring的核心配置
+spring:
+  ####数据源【连接池】
+  datasource:
+    #连接池的类型
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springboot_mybatis?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+  ##热部署配置
+  devtools:
+    restart:
+      enabled: true
+      #设置重启的目录，添加目录文件需要的restart
+      additional-paths: src/main/java
+      #解决项目的自动重新编译的后的接口包404的问题
+      poll-interval: 3000
+      quiet-period: 1000
+  ##Ehcache缓存配置
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+
+##mybatis配置
+mybatis:
+  #mapper文件的放置路径
+  mapper-locations: classpath:/mappers/*.xml
+  #对应参数的实体类包
+  type-aliases-package: com.xxxx.springboot.po
+  configuration:
+    #数据库字段：下划线转驼峰
+    map-underscore-to-camel-case: true
+
+
+##分页配置
+pagehelper:
+  #分页对应的数据库类型
+  helper-dialect: mysql
+
+
+ ##日志配置
+logging:
+  #日志输出的范围及级别设置
+  level:
+    com:
+      xxxx:
+        springboot:
+          dao: debug
